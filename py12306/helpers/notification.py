@@ -75,11 +75,15 @@ class Notification():
         params = {
             'content': body,
             'mobile': phone,
-            'sex': 2,
+            # 'sex': 2,
             'tNum': 'T170701001056'
         }
-        response = self.session.request(url=API_NOTIFICATION_BY_VOICE_CODE + urllib.parse.urlencode(params),
-                                        method='GET', headers={'Authorization': 'APPCODE {}'.format(appcode)})
+        response = self.session.request(
+            url=API_NOTIFICATION_BY_VOICE_CODE,
+            data=params,
+            method='POST',
+            headers={'Authorization': 'APPCODE {}'.format(appcode)}
+        )
         result = response.json()
         response_message = result.get('showapi_res_body.remark')
         if response.status_code in [400, 401, 403]:
